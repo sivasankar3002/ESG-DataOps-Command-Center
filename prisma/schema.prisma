@@ -1,0 +1,295 @@
+// =====================================================================
+// ESG DataOps Command Center — Warehouse / Audit / Ops Schema
+// ---------------------------------------------------------------------
+// Designed 1:1 against the reference PostgreSQL DDL (see docs/ and
+// README "Technology mapping"). SQLite is used locally so the project
+// runs with zero infrastructure; the model maps cleanly onto
+// PostgreSQL / Snowflake (enums are strings, no SQLite-specific types).
+// =====================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ------------------------------------------------------------------
+// MODULE 1 — File ingestion log (landing-zone observability)
+// file_status: RECEIVED | VALIDATING | VALIDATED | QUARANTINED |
+//              PROCESSING | PROCESSED | FAILED
+// ------------------------------------------------------------------
+model FileIngestionLog {
+  fileId               String    @id // FIL-<batch>-<n>
+  batchId              String
+  fileName             String
+  dataset              String // energy_consumption | carbon_emissions | site_master
+  sourceLocation       String // zone the file landed in
+  expectedArrivalDate  DateTime
+  receivedAt           DateTime?
+  fileSizeBytes        Int       @default(0)
+  checksumValue        String    @default("")
+  checksumAlgorithm    String    @default("SHA256")
+  checksumStatus       String    @default("PENDING") // PENDING | VALID | INVALID | SKIPPED
+  fileStatus           String    @default("RECEIVED")
+  errorMessage         String?
+  zone                 String    @default("INCOMING") // INCOMING | QUARANTINE | PROCESSED
+  createdAt            DateTime  @default(now())
+
+  @@index([batchId])
+  @@index([fileStatus])
+  @@index([expectedArrivalDate])
+}
+
+// ------------------------------------------------------------------
+// MODULE 4 — Job run audit (Airflow-style task runs)
+// status: RUNNING | SUCCESS | FAILED | SKIPPED
+// ------------------------------------------------------------------
+model JobRunAudit {
+  runId           String    @id // <dag>.<task>.<batch>
+  batchId         String
+  dagId           String
+  taskId          String
+  jobName         String
+  jobType         String // SENSOR | INGEST | VALIDATE | LOAD | TRANSFORM | RECONCILE | REPORT | NOTIFY
+  sequence        Int       @default(0)
+  startTime       DateTime
+  endTime         DateTime?
+  durationSeconds Float?
+  status          String    @default("RUNNING")
+  rowsRead        Int?
+  rowsLoaded      Int?
+  rowsRejected    Int?
+  errorMessage    String?
+  createdAt       DateTime  @default(now())
+
+  @@index([batchId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ------------------------------------------------------------------
+// MODULE 2/4 — Staging tables (raw zone, keeps rejected rows + lineage)
+// ------------------------------------------------------------------
+model StagingEnergyData {
+  stagingId        String    @id // S-<batch>-<n>
+  batchId          String
+  dataset          String    @default("energy_consumption") // energy_consumption | carbon_emissions
+  recordId         String
+  siteId           String?
+  readingDate      DateTime?
+  energyKwh        Float?
+  emissionsCo2e    Float?
+  sourceFileName   String
+  sourceSystem     String    @default("ESG-IOT-HUB")
+  loadTimestamp    DateTime  @default(now())
+  validationStatus String    @default("VALID") // VALID | REJECTED
+  rejectionReason  String?
+
+  @@index([batchId])
+  @@index([recordId])
+  @@index([dataset])
+}
+
+model StagingSiteMaster {
+  stagingId         String    @id
+  batchId           String
+  siteId            String
+  siteName          String
+  country           String
+  region            String
+  siteType          String
+  effectiveFromDate DateTime
+  sourceFileName    String
+  loadTimestamp     DateTime  @default(now())
+  validationStatus  String    @default("VALID")
+  rejectionReason   String?
+
+  @@index([batchId])
+  @@index([siteId])
+}
+
+// ------------------------------------------------------------------
+// MODULE 2 — Warehouse (star schema: dim_site + fact_energy_emissions)
+// ------------------------------------------------------------------
+model DimSite {
+  siteKey           Int      @id @default(autoincrement())
+  siteId            String   @unique
+  siteName          String
+  country           String
+  region            String
+  siteType          String
+  effectiveFromDate DateTime
+  activeFlag        Boolean  @default(true)
+  loadedAt          DateTime @default(now())
+}
+
+model FactEnergyEmissions {
+  factId         Int      @id @default(autoincrement())
+  batchId        String
+  recordId       String
+  siteId         String
+  readingDate    DateTime
+  energyKwh      Float
+  emissionsCo2e  Float
+  sourceFileName String
+  sourceSystem   String
+  loadedAt       DateTime @default(now())
+
+  @@unique([batchId, recordId])
+  @@index([readingDate])
+  @@index([siteId])
+}
+
+// ------------------------------------------------------------------
+// MODULE 5 — Data quality check results
+// status: PASS | FAIL | WARN   severity: INFO | LOW | MEDIUM | HIGH | CRITICAL
+// ------------------------------------------------------------------
+model DqCheckResult {
+  checkId        Int      @id @default(autoincrement())
+  batchId        String
+  runId          String
+  businessDate   String // YYYY-MM-DD, kept as text for exact grouping
+  checkName      String
+  checkCategory  String
+  tableName      String?
+  columnName     String?
+  status         String
+  expectedValue  String?
+  actualValue    String?
+  thresholdValue String?
+  severity       String
+  errorDetails   String?
+  executedAt     DateTime @default(now())
+
+  @@index([batchId])
+  @@index([checkName, status])
+  @@index([businessDate])
+}
+
+// ------------------------------------------------------------------
+// MODULE 6 — ServiceNow-style incident log
+// severity: P1..P4  status: OPEN | IN_PROGRESS | RESOLVED | CLOSED
+// incident_type: FILE_MISSING, FILE_CORRUPTED, SCHEMA_DRIFT, EMPTY_FILE,
+//   CHECKSUM_MISMATCH, DUPLICATE_RECORDS, NULL_VALUES, RANGE_VIOLATION,
+//   ROW_COUNT_MISMATCH, LOAD_FAILURE, SLA_BREACH, FRESHNESS_FAILURE
+// ------------------------------------------------------------------
+model IncidentLog {
+  incidentId          String   @id // INC-000001
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  batchId             String?
+  runId               String?
+  pipelineName        String   @default("esg_daily_ingestion")
+  incidentType        String
+  severity            String
+  status              String   @default("OPEN")
+  shortDescription    String
+  detailedDescription String
+  errorMessage        String?
+  affectedFile        String?
+  affectedTable       String?
+  affectedCheck       String?
+  evidencePath        String?
+  runbookLink         String?
+  assignedTo          String   @default("L1 On-call")
+  assignmentGroup     String   @default("ESG DataOps L1")
+  affectedService     String   @default("ESG Analytics Warehouse")
+  escalatedFlag       Boolean  @default(false)
+  resolutionNotes     String?
+
+  @@index([status])
+  @@index([severity])
+  @@index([batchId])
+  @@index([createdAt])
+}
+
+// ServiceNow-style work notes journal
+model WorkNote {
+  id         Int      @id @default(autoincrement())
+  incidentId String
+  note       String
+  author     String   @default("L1 Support")
+  createdAt  DateTime @default(now())
+
+  @@index([incidentId])
+}
+
+// ------------------------------------------------------------------
+// MODULE 7 — Incident evidence package index
+// evidence_type: LOG_FILE | FAILED_ROWS_CSV | QUERY_RESULT_JSON |
+//                SCREENSHOT_PLACEHOLDER | INCIDENT_SUMMARY_JSON | ESCALATION_HANDOFF_MD
+// ------------------------------------------------------------------
+model IncidentEvidence {
+  evidenceId      String   @id // EVD-<incident>-<n>
+  incidentId      String
+  evidenceType    String
+  evidencePath    String
+  evidenceSummary String
+  content         String   @default("") // stored copy so the UI can render/download
+  createdAt       DateTime @default(now())
+
+  @@index([incidentId])
+}
+
+// ------------------------------------------------------------------
+// MODULE 11 — Alert log (CloudWatch-style alarm simulation)
+// ------------------------------------------------------------------
+model AlertLog {
+  alertId          Int       @id @default(autoincrement())
+  createdAt        DateTime  @default(now())
+  batchId          String?
+  runId            String?
+  alertType        String
+  severity         String
+  message          String
+  channels         String    @default("console") // csv of dispatched stub channels
+  acknowledgedFlag Boolean   @default(false)
+  acknowledgedAt   DateTime?
+
+  @@index([createdAt])
+}
+
+// ------------------------------------------------------------------
+// MODULE 12 — User preferences (server-side persistence)
+// Small key/value store so operator preferences (e.g. alert
+// subscription matrices) survive browser changes — the production
+// stand-in for per-user profile storage (ServiceNow user prefs /
+// PagerDuty user notification rules).
+// ------------------------------------------------------------------
+model UserPreference {
+  userKey   String   @default("local-operator") // single-user local sim
+  prefKey   String // e.g. alert.subscriptions
+  prefValue String // JSON-encoded value
+  updatedAt DateTime @updatedAt
+
+  @@id([userKey, prefKey])
+}
+
+// ------------------------------------------------------------------
+// MODULE 10 — Daily operational report (md + csv stored for download)
+// overall_health: GREEN | AMBER | RED
+// ------------------------------------------------------------------
+model DailyOpsReport {
+  id                   Int      @id @default(autoincrement())
+  reportDate           String   @unique // YYYY-MM-DD
+  filesExpected        Int      @default(0)
+  filesReceived        Int      @default(0)
+  filesQuarantined     Int      @default(0)
+  jobsExecuted         Int      @default(0)
+  jobsSucceeded        Int      @default(0)
+  jobsFailed           Int      @default(0)
+  dqChecksExecuted     Int      @default(0)
+  dqChecksPassed       Int      @default(0)
+  dqChecksFailed       Int      @default(0)
+  openIncidents        Int      @default(0)
+  p1Incidents          Int      @default(0)
+  p2Incidents          Int      @default(0)
+  reconciliationStatus String   @default("PASS") // PASS | FAIL | NO_DATA
+  overallHealth        String   @default("GREEN")
+  markdownContent      String   @default("")
+  csvContent           String   @default("")
+  createdAt            DateTime @default(now())
+}
