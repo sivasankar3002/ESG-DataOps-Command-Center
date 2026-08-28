@@ -1,0 +1,2 @@
+report_date,files_expected,files_received,files_quarantined,jobs_executed,jobs_succeeded,jobs_failed,dq_checks_executed,dq_checks_passed,dq_checks_failed,open_incidents,p1_incidents,p2_incidents,reconciliation_status,overall_health
+2026-08-22,3,3,0,7,6,0,37,37,0,0,0,0,PASS,GREEN

@@ -1,0 +1,61 @@
+{
+  "incident_id": "INC-000010",
+  "severity": "P3",
+  "status": "OPEN",
+  "incident_type": "DUPLICATE_RECORDS",
+  "short_description": "duplicate_record_check failed for energy_consumption (batch B-20260828-01)",
+  "detailed_description": "Data quality check duplicate_record_check failed on staging_energy_data (expected: 0, actual: 2)\n\nCheck: duplicate_record_check (UNIQUENESS)\nExpected: 0 | Actual: 2 | Threshold: -\nBatch: B-20260828-01 | Business date: 2026-08-28 | Run: esg_daily_ingestion.run_data_quality_checks_task.B-20260828-01\nDetails: 2 duplicate record_id occurrence(s) rejected during staging load",
+  "error_message": "2 duplicate record_id occurrence(s) rejected during staging load",
+  "batch_id": "B-20260828-01",
+  "run_id": "esg_daily_ingestion.run_data_quality_checks_task.B-20260828-01",
+  "business_date": "2026-08-28",
+  "pipeline": "esg_daily_ingestion",
+  "affected": {
+    "file": null,
+    "table": "staging_energy_data",
+    "check": "duplicate_record_check"
+  },
+  "runbook": "docs/runbooks/RB006_duplicate_records.md",
+  "files_in_batch": [
+    {
+      "fileName": "energy_consumption_2026-08-28.csv",
+      "dataset": "energy_consumption",
+      "fileStatus": "PROCESSED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "carbon_emissions_2026-08-28.csv",
+      "dataset": "carbon_emissions",
+      "fileStatus": "PROCESSED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "site_master_2026-08-28.csv",
+      "dataset": "site_master",
+      "fileStatus": "PROCESSED",
+      "errorMessage": null
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "file_sensor_task",
+      "status": "SUCCESS",
+      "durationSeconds": 1,
+      "errorMessage": null
+    },
+    {
+      "taskId": "ingest_and_validate_file_task",
+      "status": "SUCCESS",
+      "durationSeconds": 7.3,
+      "errorMessage": null
+    },
+    {
+      "taskId": "load_staging_task",
+      "status": "SUCCESS",
+      "durationSeconds": 5.5,
+      "errorMessage": null
+    }
+  ],
+  "created_at": "2026-08-28T12:00:00.000Z",
+  "collected_at": "2026-08-29T21:43:38.158Z"
+}

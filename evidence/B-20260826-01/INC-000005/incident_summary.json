@@ -1,0 +1,49 @@
+{
+  "incident_id": "INC-000005",
+  "severity": "P2",
+  "status": "OPEN",
+  "incident_type": "CHECKSUM_MISMATCH",
+  "short_description": "Checksum mismatch: energy_consumption_2026-08-26.csv failed SHA256 integrity validation against its manifest — file quarantined",
+  "detailed_description": "Checksum mismatch: energy_consumption_2026-08-26.csv failed SHA256 integrity validation against its manifest — file quarantined\n\nCheck: checksum_validation (INTEGRITY)\nExpected: deadbe87442f31e9… | Actual: 33f6fe87442f31e9… | Threshold: -\nBatch: B-20260826-01 | Business date: 2026-08-26 | Run: esg_daily_ingestion.ingest_and_validate_file_task.B-20260826-01\nDetails: SHA256 mismatch — file content does not match the manifest control record (possible corruption/truncation in transit)",
+  "error_message": "SHA256 mismatch — file content does not match the manifest control record (possible corruption/truncation in transit)",
+  "batch_id": "B-20260826-01",
+  "run_id": "esg_daily_ingestion.ingest_and_validate_file_task.B-20260826-01",
+  "business_date": "2026-08-26",
+  "pipeline": "esg_daily_ingestion",
+  "affected": {
+    "file": "energy_consumption_2026-08-26.csv",
+    "table": "file_ingestion_log",
+    "check": "checksum_validation"
+  },
+  "runbook": "docs/runbooks/RB003_checksum_mismatch.md",
+  "files_in_batch": [
+    {
+      "fileName": "energy_consumption_2026-08-26.csv",
+      "dataset": "energy_consumption",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "carbon_emissions_2026-08-26.csv",
+      "dataset": "carbon_emissions",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "site_master_2026-08-26.csv",
+      "dataset": "site_master",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "file_sensor_task",
+      "status": "SUCCESS",
+      "durationSeconds": 1,
+      "errorMessage": null
+    }
+  ],
+  "created_at": "2026-08-26T07:30:00.000Z",
+  "collected_at": "2026-08-29T21:43:37.578Z"
+}

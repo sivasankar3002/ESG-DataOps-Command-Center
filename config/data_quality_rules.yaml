@@ -1,0 +1,158 @@
+# =====================================================================
+# ESG DataOps Command Center — data quality rules engine configuration
+# Read by the validation engine (src/lib/esg/dq.ts). Every executed
+# check is written to dq_check_results; failures with create_incident:
+# true raise a ServiceNow-style incident automatically.
+# =====================================================================
+
+datasets:
+  energy_consumption:
+    required_columns:
+      - record_id
+      - site_id
+      - reading_date
+      - energy_kwh
+      - emissions_co2e
+    primary_key:
+      - record_id
+    mandatory_not_null:
+      - record_id
+      - site_id
+      - reading_date
+      - energy_kwh
+    numeric_range:
+      energy_kwh:
+        min: 0
+      emissions_co2e:
+        min: 0
+    date_format: "YYYY-MM-DD"
+    freshness_hours: 26
+    row_count_variance_threshold: 0
+
+  carbon_emissions:
+    required_columns:
+      - record_id
+      - site_id
+      - reading_date
+      - emissions_co2e
+    primary_key:
+      - record_id
+    mandatory_not_null:
+      - record_id
+      - site_id
+      - reading_date
+      - emissions_co2e
+    numeric_range:
+      emissions_co2e:
+        min: 0
+    date_format: "YYYY-MM-DD"
+    freshness_hours: 26
+    row_count_variance_threshold: 0
+
+  site_master:
+    required_columns:
+      - site_id
+      - site_name
+      - country
+      - region
+      - site_type
+      - effective_from_date
+    primary_key:
+      - site_id
+    mandatory_not_null:
+      - site_id
+      - site_name
+      - country
+    date_format: "YYYY-MM-DD"
+
+# ---------------------------------------------------------------------
+# Check catalogue. severity drives the dq_check_results.severity column
+# (INFO / LOW / MEDIUM / HIGH / CRITICAL). incident_type maps a failing
+# check to the ServiceNow-style incident created by the incident engine.
+# ---------------------------------------------------------------------
+checks:
+  file_arrival_check:
+    category: COMPLETENESS
+    severity: CRITICAL
+    incident_type: FILE_MISSING
+    create_incident: true
+  empty_file_check:
+    category: COMPLETENESS
+    severity: CRITICAL
+    incident_type: EMPTY_FILE
+    create_incident: true
+  checksum_validation:
+    category: INTEGRITY
+    severity: CRITICAL
+    incident_type: CHECKSUM_MISMATCH
+    create_incident: true
+  schema_header_validation:
+    category: SCHEMA
+    severity: CRITICAL
+    incident_type: SCHEMA_DRIFT
+    create_incident: true
+  row_count_check:
+    category: COMPLETENESS
+    severity: HIGH
+    incident_type: ROW_COUNT_MISMATCH
+    create_incident: true
+  sla_check:
+    category: OPERATIONS
+    severity: HIGH
+    incident_type: SLA_BREACH
+    create_incident: true
+  null_check_mandatory:
+    category: COMPLETENESS
+    severity: HIGH
+    incident_type: NULL_VALUES
+    create_incident: true
+  duplicate_record_check:
+    category: UNIQUENESS
+    severity: MEDIUM
+    incident_type: DUPLICATE_RECORDS
+    create_incident: true
+  date_validity_check:
+    category: VALIDITY
+    severity: MEDIUM
+    incident_type: RANGE_VIOLATION
+    create_incident: true
+  numeric_range_check:
+    category: VALIDITY
+    severity: MEDIUM
+    incident_type: RANGE_VIOLATION
+    create_incident: true
+  referential_integrity_check:
+    category: INTEGRITY
+    severity: MEDIUM
+    incident_type: null
+    create_incident: false
+  freshness_check:
+    category: FRESHNESS
+    severity: HIGH
+    incident_type: FRESHNESS_FAILURE
+    create_incident: true
+  quarantined_file_check:
+    category: OPERATIONS
+    severity: INFO
+    incident_type: null
+    create_incident: false
+  rejected_threshold_check:
+    category: OPERATIONS
+    severity: HIGH
+    incident_type: null
+    create_incident: false
+  source_to_target_rowcount_recon:
+    category: RECONCILIATION
+    severity: CRITICAL
+    incident_type: ROW_COUNT_MISMATCH
+    create_incident: true
+  source_to_target_aggregate_recon:
+    category: RECONCILIATION
+    severity: HIGH
+    incident_type: ROW_COUNT_MISMATCH
+    create_incident: true
+  cross_dataset_emissions_consistency:
+    category: RECONCILIATION
+    severity: LOW
+    incident_type: null
+    create_incident: false

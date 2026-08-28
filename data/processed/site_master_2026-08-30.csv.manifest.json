@@ -1,0 +1,10 @@
+{
+  "file_name": "site_master_2026-08-30.csv",
+  "dataset": "site_master",
+  "business_date": "2026-08-30",
+  "source_system": "FACILITIES-MDM",
+  "generated_at": "2026-08-30T08:24:45.018Z",
+  "expected_rows": 25,
+  "checksum_algorithm": "SHA256",
+  "checksum_sha256": "cc2640c21ae76208a49032517d9dcc8131900ba6e1baf383fadca8a6e8e1a7a8"
+}

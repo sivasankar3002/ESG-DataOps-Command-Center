@@ -1,0 +1,4 @@
+2026-08-29 21:43:36 | INFO | orchestrator | B-20260821-01 | - | Starting DAG esg_daily_ingestion for 2026-08-21 (trigger=seed)
+2026-08-29 21:43:36 | INFO | sensor | B-20260821-01 | esg_daily_ingestion.file_sensor_task.B-20260821-01 | Detected incoming file energy_consumption_2026-08-21.csv (1377 bytes)
+2026-08-29 21:43:36 | INFO | dq | B-20260821-01 | esg_daily_ingestion.file_sensor_task.B-20260821-01 | Check sla_check [PASS/HIGH] on file_ingestion_log.received_at
+2026-08-29 21:43:36 | INFO | dq | B-20260821-01 | esg_daily_ingestion.file_sensor_task.B-20260821-01 | Check file_arrival_check [FAIL/CRITICAL] on file_ingestion_log.carbon_emissions

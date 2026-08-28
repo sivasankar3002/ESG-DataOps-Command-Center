@@ -1,0 +1,17 @@
+{
+  "incident_id": "INC-000009",
+  "batch_id": "B-20260828-01",
+  "dq_check_results": [
+    {
+      "checkName": "sla_check",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:30+4h",
+      "actualValue": "late arrival",
+      "errorDetails": "File arrived at 2026-08-28T11:47:00.000Z — after SLA deadline 2026-08-28T10:30:00.000Z",
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    }
+  ],
+  "note": "Results of the SQL validation checks executed for this batch (source: dq_check_results)."
+}

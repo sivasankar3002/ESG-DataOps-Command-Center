@@ -1,0 +1,67 @@
+{
+  "incident_id": "INC-000004",
+  "batch_id": "B-20260825-01",
+  "dq_check_results": [
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:30+4h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:40+4h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:15+2h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "empty_file_check",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": ">= 1 data row",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "checksum_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "a0dfee06ea31b86e…",
+      "actualValue": "match",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "schema_header_validation",
+      "status": "FAIL",
+      "severity": "CRITICAL",
+      "expectedValue": "record_id,site_id,reading_date,energy_kwh,emissions_co2e",
+      "actualValue": "record_id,reading_date,energy_kwh,emissions_co2e",
+      "errorDetails": "Missing column(s): site_id",
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    }
+  ],
+  "note": "Results of the SQL validation checks executed for this batch (source: dq_check_results)."
+}

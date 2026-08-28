@@ -1,0 +1,27 @@
+{
+  "incident_id": "INC-000002",
+  "batch_id": "B-20260821-01",
+  "dq_check_results": [
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:30+4h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "file_arrival_check",
+      "status": "FAIL",
+      "severity": "CRITICAL",
+      "expectedValue": "carbon_emissions_2026-08-21.csv",
+      "actualValue": "not received",
+      "errorDetails": "Expected feed carbon_emissions_2026-08-21.csv (source: CARBON-LEDGER-API) not found in landing zone",
+      "tableName": "file_ingestion_log",
+      "columnName": "carbon_emissions"
+    }
+  ],
+  "note": "Results of the SQL validation checks executed for this batch (source: dq_check_results)."
+}

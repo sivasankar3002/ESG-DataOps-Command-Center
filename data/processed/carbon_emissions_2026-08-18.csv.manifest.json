@@ -1,0 +1,10 @@
+{
+  "file_name": "carbon_emissions_2026-08-18.csv",
+  "dataset": "carbon_emissions",
+  "business_date": "2026-08-18",
+  "source_system": "CARBON-LEDGER-API",
+  "generated_at": "2026-08-29T21:43:35.350Z",
+  "expected_rows": 24,
+  "checksum_algorithm": "SHA256",
+  "checksum_sha256": "d11af05378ceaee5477b6cebc2b03d29fcbdc4d550a9ba0bcfadd0b8967ad6b5"
+}

@@ -1,0 +1,49 @@
+{
+  "incident_id": "INC-000007",
+  "severity": "P2",
+  "status": "OPEN",
+  "incident_type": "ROW_COUNT_MISMATCH",
+  "short_description": "Row count mismatch: energy_consumption_2026-08-27.csv delivered 24 rows but the manifest expected 29",
+  "detailed_description": "Row count mismatch: energy_consumption_2026-08-27.csv delivered 24 rows but the manifest expected 29\n\nCheck: row_count_check (COMPLETENESS)\nExpected: 29 | Actual: 24 | Threshold: 0\nBatch: B-20260827-01 | Business date: 2026-08-27 | Run: esg_daily_ingestion.ingest_and_validate_file_task.B-20260827-01\nDetails: Row count variance -5 vs manifest expected_rows",
+  "error_message": "Row count variance -5 vs manifest expected_rows",
+  "batch_id": "B-20260827-01",
+  "run_id": "esg_daily_ingestion.ingest_and_validate_file_task.B-20260827-01",
+  "business_date": "2026-08-27",
+  "pipeline": "esg_daily_ingestion",
+  "affected": {
+    "file": "energy_consumption_2026-08-27.csv",
+    "table": "file_ingestion_log",
+    "check": "row_count_check"
+  },
+  "runbook": "docs/runbooks/RB005_row_count_mismatch.md",
+  "files_in_batch": [
+    {
+      "fileName": "energy_consumption_2026-08-27.csv",
+      "dataset": "energy_consumption",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "carbon_emissions_2026-08-27.csv",
+      "dataset": "carbon_emissions",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "site_master_2026-08-27.csv",
+      "dataset": "site_master",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "file_sensor_task",
+      "status": "SUCCESS",
+      "durationSeconds": 1,
+      "errorMessage": null
+    }
+  ],
+  "created_at": "2026-08-27T07:30:00.000Z",
+  "collected_at": "2026-08-29T21:43:37.844Z"
+}

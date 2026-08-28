@@ -1,0 +1,61 @@
+{
+  "incident_id": "INC-000003",
+  "severity": "P2",
+  "status": "OPEN",
+  "incident_type": "NULL_VALUES",
+  "short_description": "null_check_mandatory failed for energy_consumption (batch B-20260823-01)",
+  "detailed_description": "Data quality check null_check_mandatory failed on staging_energy_data (expected: 0, actual: 2)\n\nCheck: null_check_mandatory (COMPLETENESS)\nExpected: 0 | Actual: 2 | Threshold: -\nBatch: B-20260823-01 | Business date: 2026-08-23 | Run: esg_daily_ingestion.run_data_quality_checks_task.B-20260823-01\nDetails: Null/missing values in mandatory column(s): site_id=2",
+  "error_message": "Null/missing values in mandatory column(s): site_id=2",
+  "batch_id": "B-20260823-01",
+  "run_id": "esg_daily_ingestion.run_data_quality_checks_task.B-20260823-01",
+  "business_date": "2026-08-23",
+  "pipeline": "esg_daily_ingestion",
+  "affected": {
+    "file": "energy_consumption_2026-08-23.csv",
+    "table": "staging_energy_data",
+    "check": "null_check_mandatory"
+  },
+  "runbook": "docs/runbooks/RB007_null_values.md",
+  "files_in_batch": [
+    {
+      "fileName": "energy_consumption_2026-08-23.csv",
+      "dataset": "energy_consumption",
+      "fileStatus": "PROCESSED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "carbon_emissions_2026-08-23.csv",
+      "dataset": "carbon_emissions",
+      "fileStatus": "PROCESSED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "site_master_2026-08-23.csv",
+      "dataset": "site_master",
+      "fileStatus": "PROCESSED",
+      "errorMessage": null
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "file_sensor_task",
+      "status": "SUCCESS",
+      "durationSeconds": 1,
+      "errorMessage": null
+    },
+    {
+      "taskId": "ingest_and_validate_file_task",
+      "status": "SUCCESS",
+      "durationSeconds": 7.3,
+      "errorMessage": null
+    },
+    {
+      "taskId": "load_staging_task",
+      "status": "SUCCESS",
+      "durationSeconds": 5.5,
+      "errorMessage": null
+    }
+  ],
+  "created_at": "2026-08-23T07:30:00.000Z",
+  "collected_at": "2026-08-29T21:43:36.845Z"
+}

@@ -1,0 +1,7 @@
+SCREENSHOT PLACEHOLDER
+======================
+Attach a screenshot of the dashboard at escalation time:
+  - Dashboard > Incidents > INC-000004
+  - Dashboard > Data Quality (failed checks for batch B-20260825-01)
+This placeholder exists so the evidence checklist stays complete when
+collecting packages programmatically.

@@ -1,0 +1,337 @@
+{
+  "incident_id": "INC-000006",
+  "batch_id": "B-20260826-01",
+  "dq_check_results": [
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:30+4h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:40+4h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:15+2h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "empty_file_check",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": ">= 1 data row",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "checksum_validation",
+      "status": "FAIL",
+      "severity": "CRITICAL",
+      "expectedValue": "deadbe87442f31e9…",
+      "actualValue": "33f6fe87442f31e9…",
+      "errorDetails": "SHA256 mismatch — file content does not match the manifest control record (possible corruption/truncation in transit)",
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "schema_header_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "record_id,site_id,reading_date,energy_kwh,emissions_co2e",
+      "actualValue": "all required columns present",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "row_count_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "24",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "empty_file_check",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": ">= 1 data row",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "carbon_emissions"
+    },
+    {
+      "checkName": "checksum_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "8093db25026a73c7…",
+      "actualValue": "match",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "carbon_emissions"
+    },
+    {
+      "checkName": "schema_header_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "record_id,site_id,reading_date,emissions_co2e",
+      "actualValue": "all required columns present",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "carbon_emissions"
+    },
+    {
+      "checkName": "row_count_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "24",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "carbon_emissions"
+    },
+    {
+      "checkName": "empty_file_check",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": ">= 1 data row",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "site_master"
+    },
+    {
+      "checkName": "checksum_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "b30912f70cc1063a…",
+      "actualValue": "match",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "site_master"
+    },
+    {
+      "checkName": "schema_header_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "site_id,site_name,country,region,site_type,effective_from_date",
+      "actualValue": "all required columns present",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "site_master"
+    },
+    {
+      "checkName": "row_count_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "24",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "site_master"
+    },
+    {
+      "checkName": "null_check_mandatory",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "record_id,site_id,reading_date,energy_kwh"
+    },
+    {
+      "checkName": "duplicate_record_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "record_id"
+    },
+    {
+      "checkName": "date_validity_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "reading_date"
+    },
+    {
+      "checkName": "numeric_range_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "energy_kwh,emissions_co2e"
+    },
+    {
+      "checkName": "referential_integrity_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "site_id"
+    },
+    {
+      "checkName": "null_check_mandatory",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "record_id,site_id,reading_date,emissions_co2e"
+    },
+    {
+      "checkName": "duplicate_record_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "record_id"
+    },
+    {
+      "checkName": "date_validity_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "reading_date"
+    },
+    {
+      "checkName": "numeric_range_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "emissions_co2e"
+    },
+    {
+      "checkName": "referential_integrity_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "site_id"
+    },
+    {
+      "checkName": "rejected_threshold_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 5%",
+      "actualValue": "0.0%",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": null
+    },
+    {
+      "checkName": "null_check_mandatory",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_site_master",
+      "columnName": "site_id,site_name,country"
+    },
+    {
+      "checkName": "duplicate_record_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_site_master",
+      "columnName": "site_id"
+    },
+    {
+      "checkName": "date_validity_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_site_master",
+      "columnName": "effective_from_date"
+    },
+    {
+      "checkName": "numeric_range_check",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_site_master",
+      "columnName": ""
+    },
+    {
+      "checkName": "rejected_threshold_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 5%",
+      "actualValue": "0.0%",
+      "errorDetails": null,
+      "tableName": "staging_site_master",
+      "columnName": null
+    },
+    {
+      "checkName": "quarantined_file_check",
+      "status": "WARN",
+      "severity": "INFO",
+      "expectedValue": "0",
+      "actualValue": "1",
+      "errorDetails": "energy_consumption_2026-08-26.csv: CHECKSUM_MISMATCH — integrity validation failed",
+      "tableName": "file_ingestion_log",
+      "columnName": null
+    },
+    {
+      "checkName": "freshness_check",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "expectedValue": ">= 2026-08-25",
+      "actualValue": "2026-08-24",
+      "errorDetails": "Warehouse is stale: latest reading_date 2026-08-24 is older than 2026-08-25",
+      "tableName": "fact_energy_emissions",
+      "columnName": "reading_date"
+    }
+  ],
+  "note": "Results of the SQL validation checks executed for this batch (source: dq_check_results)."
+}

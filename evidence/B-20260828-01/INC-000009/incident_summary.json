@@ -1,0 +1,30 @@
+{
+  "incident_id": "INC-000009",
+  "severity": "P2",
+  "status": "OPEN",
+  "incident_type": "SLA_BREACH",
+  "short_description": "SLA breach: energy_consumption_2026-08-28.csv arrived 77 min after the 4h SLA window",
+  "detailed_description": "SLA breach: energy_consumption_2026-08-28.csv arrived 77 min after the 4h SLA window\n\nCheck: sla_check (OPERATIONS)\nExpected: <= 06:30+4h | Actual: late arrival | Threshold: 4\nBatch: B-20260828-01 | Business date: 2026-08-28 | Run: esg_daily_ingestion.file_sensor_task.B-20260828-01\nDetails: File arrived at 2026-08-28T11:47:00.000Z — after SLA deadline 2026-08-28T10:30:00.000Z",
+  "error_message": "File arrived at 2026-08-28T11:47:00.000Z — after SLA deadline 2026-08-28T10:30:00.000Z",
+  "batch_id": "B-20260828-01",
+  "run_id": "esg_daily_ingestion.file_sensor_task.B-20260828-01",
+  "business_date": "2026-08-28",
+  "pipeline": "esg_daily_ingestion",
+  "affected": {
+    "file": "energy_consumption_2026-08-28.csv",
+    "table": "file_ingestion_log",
+    "check": "sla_check"
+  },
+  "runbook": "docs/runbooks/RB009_sla_breach.md",
+  "files_in_batch": [
+    {
+      "fileName": "energy_consumption_2026-08-28.csv",
+      "dataset": "energy_consumption",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    }
+  ],
+  "tasks": [],
+  "created_at": "2026-08-28T12:00:00.000Z",
+  "collected_at": "2026-08-29T21:43:38.059Z"
+}

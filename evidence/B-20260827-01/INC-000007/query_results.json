@@ -1,0 +1,77 @@
+{
+  "incident_id": "INC-000007",
+  "batch_id": "B-20260827-01",
+  "dq_check_results": [
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:30+4h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:40+4h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:15+2h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "empty_file_check",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": ">= 1 data row",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "checksum_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "c0df9ea71addf6b5…",
+      "actualValue": "match",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "schema_header_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "record_id,site_id,reading_date,energy_kwh,emissions_co2e",
+      "actualValue": "all required columns present",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "row_count_check",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "expectedValue": "29",
+      "actualValue": "24",
+      "errorDetails": "Row count variance -5 vs manifest expected_rows",
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    }
+  ],
+  "note": "Results of the SQL validation checks executed for this batch (source: dq_check_results)."
+}

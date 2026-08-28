@@ -1,0 +1,49 @@
+{
+  "incident_id": "INC-000004",
+  "severity": "P1",
+  "status": "OPEN",
+  "incident_type": "SCHEMA_DRIFT",
+  "short_description": "Schema drift: energy_consumption_2026-08-25.csv is missing column(s) [site_id] — quarantined",
+  "detailed_description": "Schema drift: energy_consumption_2026-08-25.csv is missing column(s) [site_id] — quarantined\n\nCheck: schema_header_validation (SCHEMA)\nExpected: record_id,site_id,reading_date,energy_kwh,emissions_co2e | Actual: record_id,reading_date,energy_kwh,emissions_co2e | Threshold: -\nBatch: B-20260825-01 | Business date: 2026-08-25 | Run: esg_daily_ingestion.ingest_and_validate_file_task.B-20260825-01\nDetails: Missing column(s): site_id",
+  "error_message": "Missing column(s): site_id",
+  "batch_id": "B-20260825-01",
+  "run_id": "esg_daily_ingestion.ingest_and_validate_file_task.B-20260825-01",
+  "business_date": "2026-08-25",
+  "pipeline": "esg_daily_ingestion",
+  "affected": {
+    "file": "energy_consumption_2026-08-25.csv",
+    "table": "file_ingestion_log",
+    "check": "schema_header_validation"
+  },
+  "runbook": "docs/runbooks/RB004_schema_drift.md",
+  "files_in_batch": [
+    {
+      "fileName": "energy_consumption_2026-08-25.csv",
+      "dataset": "energy_consumption",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "carbon_emissions_2026-08-25.csv",
+      "dataset": "carbon_emissions",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    },
+    {
+      "fileName": "site_master_2026-08-25.csv",
+      "dataset": "site_master",
+      "fileStatus": "RECEIVED",
+      "errorMessage": null
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "file_sensor_task",
+      "status": "SUCCESS",
+      "durationSeconds": 1,
+      "errorMessage": null
+    }
+  ],
+  "created_at": "2026-08-25T07:30:00.000Z",
+  "collected_at": "2026-08-29T21:43:37.352Z"
+}

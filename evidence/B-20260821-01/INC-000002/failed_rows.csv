@@ -1,0 +1,2 @@
+record_id,site_id,reading_date,energy_kwh,emissions_co2e,rejection_reason,source_file
+# no rejected staging rows recorded for this incident (file-level failure)

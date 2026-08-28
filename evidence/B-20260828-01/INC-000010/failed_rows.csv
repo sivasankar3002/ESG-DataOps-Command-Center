@@ -1,0 +1,3 @@
+record_id,site_id,reading_date,energy_kwh,emissions_co2e,rejection_reason,source_file
+EN-20260828-001-574,SITE-001,2026-08-28,1154.93,385.13,duplicate_record_id,energy_consumption_2026-08-28.csv
+EN-20260828-002-205,SITE-002,2026-08-28,11505.89,3945.47,duplicate_record_id,energy_consumption_2026-08-28.csv

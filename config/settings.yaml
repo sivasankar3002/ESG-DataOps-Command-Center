@@ -1,0 +1,87 @@
+# =====================================================================
+# ESG DataOps Command Center — runtime settings
+# Secrets/connection strings come from environment variables (.env),
+# never from this file. See .env.example.
+# =====================================================================
+
+app:
+  name: "ESG DataOps Command Center"
+  environment: "LOCAL-SIM"
+
+database:
+  # Connection string is read from this environment variable (Prisma).
+  url_env: "DATABASE_URL"
+
+paths:
+  # All paths are relative to the project root unless ESG_DATA_HOME is set.
+  # Simulates the SFTP/S3 landing zones (swap for s3:// buckets in AWS).
+  incoming_dir: "data/incoming"
+  quarantine_dir: "data/quarantine"
+  processed_dir: "data/processed"
+  evidence_dir: "evidence"
+  logs_dir: "logs"
+  reports_dir: "reports"
+
+schedules:
+  timezone: "local"
+  # The daily DAG becomes eligible at this local time each day.
+  dag_start: "06:30"
+  sla:
+    # Hours after expected arrival until a feed is officially late.
+    default_hours: 4
+
+pipeline:
+  dag_id: "esg_daily_ingestion"
+  # Airflow-style retry policy applied by the orchestrator.
+  retries: 1
+  task_timeout_seconds: 120
+  # When a critical file-level check fails we quarantine the file and
+  # load only validated records (never partial/broken files).
+  load_policy: "validated_records_only"
+
+incidents:
+  assignment_group: "ESG DataOps L1"
+  assigned_to: "L1 On-call"
+  escalation_group: "Data Engineering L2"
+  # Auto-escalation threshold for unresolved OPEN / IN_PROGRESS incidents.
+  escalation_threshold_minutes: 240
+  severity_mapping:
+    FILE_MISSING: "P2"
+    FILE_CORRUPTED: "P2"
+    EMPTY_FILE: "P2"
+    CHECKSUM_MISMATCH: "P2"
+    SCHEMA_DRIFT_MANDATORY: "P1"
+    SCHEMA_DRIFT_OPTIONAL: "P2"
+    ROW_COUNT_MISMATCH: "P2"
+    DUPLICATE_RECORDS: "P3"
+    NULL_VALUES_MANDATORY: "P2"
+    NULL_VALUES_OPTIONAL: "P3"
+    RANGE_VIOLATION: "P3"
+    LOAD_FAILURE: "P1"
+    SLA_BREACH: "P2"
+    FRESHNESS_FAILURE: "P2"
+
+alerts:
+  # Simulated channels: console + stubs (no paid services required).
+  channels:
+    - console
+    - email_stub
+    - webhook_stub
+  conditions:
+    - file_missing
+    - checksum_mismatch
+    - schema_drift
+    - load_failure
+    - sla_breach
+    - freshness_failure
+    - reconciliation_mismatch
+
+dashboard:
+  refresh_seconds: 30
+  trend_days: 14
+
+reporting:
+  # Percentage of rejected records tolerated before the batch is flagged.
+  rejected_record_threshold_pct: 5
+  # Tolerance (absolute kWh) for source-to-target aggregate reconciliation.
+  aggregate_tolerance: 0.01

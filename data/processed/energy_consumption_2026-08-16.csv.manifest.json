@@ -1,0 +1,10 @@
+{
+  "file_name": "energy_consumption_2026-08-16.csv",
+  "dataset": "energy_consumption",
+  "business_date": "2026-08-16",
+  "source_system": "ESG-IOT-HUB",
+  "generated_at": "2026-08-29T21:43:34.833Z",
+  "expected_rows": 24,
+  "checksum_algorithm": "SHA256",
+  "checksum_sha256": "a2a9bae05828ca4122cdbc9fb1e9f92b2907d90189b5cfbf114d5eeca1aa8efa"
+}

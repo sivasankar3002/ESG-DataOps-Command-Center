@@ -1,0 +1,2 @@
+{"timestamp":"2026-08-30T08:11:26.647Z","type":"data_quality","dataset":"energy_consumption","batchId":"DEMO-001","totalRecords":1000,"validRecords":980,"rejectedRecords":20,"qualityScore":98,"topIssues":[{"issue":"DUPLICATE_KEY","count":12},{"issue":"OUT_OF_RANGE","count":8}]}
+{"timestamp":"2026-08-30T08:11:26.638Z","type":"performance","taskName":"raw_to_staging","batchId":"DEMO-001","runId":"RUN-1788077486630","durationMs":5,"recordsProcessed":3,"throughputRecordsPerSecond":600,"status":"SUCCESS"}

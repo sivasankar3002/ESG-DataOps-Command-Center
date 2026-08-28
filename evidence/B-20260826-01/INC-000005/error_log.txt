@@ -1,0 +1,11 @@
+2026-08-29 21:43:37 | INFO | orchestrator | B-20260826-01 | - | Starting DAG esg_daily_ingestion for 2026-08-26 (trigger=seed)
+2026-08-29 21:43:37 | INFO | sensor | B-20260826-01 | esg_daily_ingestion.file_sensor_task.B-20260826-01 | Detected incoming file energy_consumption_2026-08-26.csv (1381 bytes)
+2026-08-29 21:43:37 | INFO | dq | B-20260826-01 | esg_daily_ingestion.file_sensor_task.B-20260826-01 | Check sla_check [PASS/HIGH] on file_ingestion_log.received_at
+2026-08-29 21:43:37 | INFO | sensor | B-20260826-01 | esg_daily_ingestion.file_sensor_task.B-20260826-01 | Detected incoming file carbon_emissions_2026-08-26.csv (1428 bytes)
+2026-08-29 21:43:37 | INFO | dq | B-20260826-01 | esg_daily_ingestion.file_sensor_task.B-20260826-01 | Check sla_check [PASS/HIGH] on file_ingestion_log.received_at
+2026-08-29 21:43:37 | INFO | sensor | B-20260826-01 | esg_daily_ingestion.file_sensor_task.B-20260826-01 | Detected incoming file site_master_2026-08-26.csv (1646 bytes)
+2026-08-29 21:43:37 | INFO | dq | B-20260826-01 | esg_daily_ingestion.file_sensor_task.B-20260826-01 | Check sla_check [PASS/HIGH] on file_ingestion_log.received_at
+2026-08-29 21:43:37 | INFO | file_sensor_task | B-20260826-01 | esg_daily_ingestion.file_sensor_task.B-20260826-01 | Task SUCCESS
+2026-08-29 21:43:37 | INFO | ingest | B-20260826-01 | esg_daily_ingestion.ingest_and_validate_file_task.B-20260826-01 | Validating energy_consumption_2026-08-26.csv (dataset=energy_consumption)
+2026-08-29 21:43:37 | INFO | dq | B-20260826-01 | esg_daily_ingestion.ingest_and_validate_file_task.B-20260826-01 | Check empty_file_check [PASS/CRITICAL] on file_ingestion_log.energy_consumption
+2026-08-29 21:43:37 | INFO | dq | B-20260826-01 | esg_daily_ingestion.ingest_and_validate_file_task.B-20260826-01 | Check checksum_validation [FAIL/CRITICAL] on file_ingestion_log.energy_consumption

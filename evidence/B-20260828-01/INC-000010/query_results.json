@@ -1,0 +1,177 @@
+{
+  "incident_id": "INC-000010",
+  "batch_id": "B-20260828-01",
+  "dq_check_results": [
+    {
+      "checkName": "sla_check",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:30+4h",
+      "actualValue": "late arrival",
+      "errorDetails": "File arrived at 2026-08-28T11:47:00.000Z — after SLA deadline 2026-08-28T10:30:00.000Z",
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:40+4h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "sla_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "<= 06:15+2h",
+      "actualValue": "on time",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "received_at"
+    },
+    {
+      "checkName": "empty_file_check",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": ">= 1 data row",
+      "actualValue": "26",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "checksum_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "5776bb5c46c9fecb…",
+      "actualValue": "match",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "schema_header_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "record_id,site_id,reading_date,energy_kwh,emissions_co2e",
+      "actualValue": "all required columns present",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "row_count_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "26",
+      "actualValue": "26",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "energy_consumption"
+    },
+    {
+      "checkName": "empty_file_check",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": ">= 1 data row",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "carbon_emissions"
+    },
+    {
+      "checkName": "checksum_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "0cdf54089ea58309…",
+      "actualValue": "match",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "carbon_emissions"
+    },
+    {
+      "checkName": "schema_header_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "record_id,site_id,reading_date,emissions_co2e",
+      "actualValue": "all required columns present",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "carbon_emissions"
+    },
+    {
+      "checkName": "row_count_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "24",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "carbon_emissions"
+    },
+    {
+      "checkName": "empty_file_check",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": ">= 1 data row",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "site_master"
+    },
+    {
+      "checkName": "checksum_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "b30912f70cc1063a…",
+      "actualValue": "match",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "site_master"
+    },
+    {
+      "checkName": "schema_header_validation",
+      "status": "PASS",
+      "severity": "CRITICAL",
+      "expectedValue": "site_id,site_name,country,region,site_type,effective_from_date",
+      "actualValue": "all required columns present",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "site_master"
+    },
+    {
+      "checkName": "row_count_check",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "24",
+      "actualValue": "24",
+      "errorDetails": null,
+      "tableName": "file_ingestion_log",
+      "columnName": "site_master"
+    },
+    {
+      "checkName": "null_check_mandatory",
+      "status": "PASS",
+      "severity": "HIGH",
+      "expectedValue": "0",
+      "actualValue": "0",
+      "errorDetails": null,
+      "tableName": "staging_energy_data",
+      "columnName": "record_id,site_id,reading_date,energy_kwh"
+    },
+    {
+      "checkName": "duplicate_record_check",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "expectedValue": "0",
+      "actualValue": "2",
+      "errorDetails": "2 duplicate record_id occurrence(s) rejected during staging load",
+      "tableName": "staging_energy_data",
+      "columnName": "record_id"
+    }
+  ],
+  "note": "Results of the SQL validation checks executed for this batch (source: dq_check_results)."
+}

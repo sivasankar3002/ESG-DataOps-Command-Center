@@ -1,0 +1,26 @@
+site_id,site_name,country,region,site_type,effective_from_date
+SITE-001,Frankfurt Retail Store,Germany,EMEA,Retail Store,2023-01-01
+SITE-002,Munich Manufacturing Plant,Germany,EMEA,Manufacturing Plant,2023-01-01
+SITE-003,Hamburg Data Center,Germany,EMEA,Data Center,2023-01-01
+SITE-004,Paris Manufacturing Plant,France,EMEA,Manufacturing Plant,2023-01-01
+SITE-005,Lyon Retail Store,France,EMEA,Retail Store,2023-01-01
+SITE-006,London Manufacturing Plant,United Kingdom,EMEA,Manufacturing Plant,2023-01-01
+SITE-007,Manchester Data Center,United Kingdom,EMEA,Data Center,2023-01-01
+SITE-008,Amsterdam Retail Store,Netherlands,EMEA,Retail Store,2023-01-01
+SITE-009,Madrid R&D Lab,Spain,EMEA,R&D Lab,2023-01-01
+SITE-010,Warsaw Office,Poland,EMEA,Office,2023-01-01
+SITE-011,New York R&D Lab,United States,AMER,R&D Lab,2023-01-01
+SITE-012,Austin Warehouse,United States,AMER,Warehouse,2023-01-01
+SITE-013,Denver Office,United States,AMER,Office,2023-01-01
+SITE-014,Toronto Data Center,Canada,AMER,Data Center,2023-01-01
+SITE-015,Mexico City R&D Lab,Mexico,AMER,R&D Lab,2023-01-01
+SITE-016,Pune Data Center,India,APAC,Data Center,2023-01-01
+SITE-017,Bengaluru R&D Lab,India,APAC,R&D Lab,2023-01-01
+SITE-018,Hyderabad Manufacturing Plant,India,APAC,Manufacturing Plant,2023-01-01
+SITE-019,Singapore Warehouse,Singapore,APAC,Warehouse,2023-01-01
+SITE-020,Osaka R&D Lab,Japan,APAC,R&D Lab,2023-01-01
+SITE-021,Sydney Warehouse,Australia,APAC,Warehouse,2023-01-01
+SITE-022,Sao Paulo Data Center,Brazil,LATAM,Data Center,2023-01-01
+SITE-023,Santiago Warehouse,Chile,LATAM,Warehouse,2023-01-01
+SITE-024,Frankfurt Data Center,Germany,EMEA,Data Center,2023-01-01
+SITE-025,Munich R&D Lab,Germany,EMEA,R&D Lab,2023-01-01

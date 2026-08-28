@@ -1,0 +1,44 @@
+# =====================================================================
+# ESG DataOps Command Center — expected daily file feeds
+# Simulates the source-system feed catalog (what ServiceNow/ops expects
+# to land in the SFTP/S3 drop zone every day).
+#
+# pattern placeholder: {date} -> YYYY-MM-DD
+# =====================================================================
+
+datasets:
+  energy_consumption:
+    description: "Daily energy consumption and CO2e per site meter"
+    pattern: "energy_consumption_{date}.csv"
+    format: csv
+    source_system: "ESG-IOT-HUB"
+    expected_arrival: "06:30"
+    sla_hours: 4
+    primary_key: [record_id]
+    expected_rows_min: 10
+    expected_rows_max: 500
+    mandatory: true
+
+  carbon_emissions:
+    description: "Daily carbon emissions ledger per site (scope 1+2)"
+    pattern: "carbon_emissions_{date}.csv"
+    format: csv
+    source_system: "CARBON-LEDGER-API"
+    expected_arrival: "06:40"
+    sla_hours: 4
+    primary_key: [record_id]
+    expected_rows_min: 5
+    expected_rows_max: 300
+    mandatory: true
+
+  site_master:
+    description: "Site / facility master daily snapshot"
+    pattern: "site_master_{date}.csv"
+    format: csv
+    source_system: "FACILITIES-MDM"
+    expected_arrival: "06:15"
+    sla_hours: 2
+    primary_key: [site_id]
+    expected_rows_min: 10
+    expected_rows_max: 60
+    mandatory: true
